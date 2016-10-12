@@ -1,0 +1,54 @@
+ /*题目：在int型数组nums中找两个数之和为target，返回这两个数的下标。*/
+
+//C++：
+
+class Solution {
+public:
+  
+	//思路
+	/*
+	先遍历一遍容器nums，计算complement=target-nums[i],判断complement在容器map中是否存在，如果有返回complement的下标和i，
+	否则把nums[i]添加到容器map中，nums[i]作为map的key，i作为map的value。
+	*/
+	vector<int> twoSum(vector<int>& nums, int target){
+	unsigned int i;
+	vector<int> results;
+	map<int,int> hmap;
+	for (i=0; i < nums.size(); i++)
+	{
+		int complement = target - nums[i];	
+		if (hmap.count(complement)){
+         	results.push_back(hmap[complement]);
+			results.push_back(i);
+			return results;
+		}
+		hmap.insert(pair<int, int>(nums[i], i));
+
+	}
+	return results;
+
+};
+
+//java：
+/*
+        
+	 *
+	 * 思路：遍历一遍nums中所有的数，计算complement=target-nums[i]，如果complement在hashmap中，
+	 * 返回complement的下标和i,否则就把nums[i]存储到hashmap中，值为key,对应的下标为value。
+	 * 
+	 */
+   public static int[] twoSum(int[] nums, int target) {
+	   
+     Map<Integer,Integer> hashmap=new HashMap<Integer,Integer>();
+     for(int i=0;i<nums.length;i++){
+    	 int complement=target-nums[i];
+    	 if(hashmap.containsKey(complement)){
+    		 return new int[]{hashmap.get(complement),i};
+    	 }
+    	 hashmap.put(nums[i], i);
+
+     }
+     throw new IllegalArgumentException("no two sum solution");
+        
+	   
+    }
