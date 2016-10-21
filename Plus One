@@ -1,0 +1,45 @@
+java:
+public class Solution {
+    public int[] plusOne(int[] digits) {
+        int sum,carry=0;
+        int i=digits.length-1;
+        sum=digits[i]+1;
+        digits[i]=sum%10;
+        carry=sum>9?1:0;
+        while(carry>0&&i>0)
+        {
+            sum=digits[--i]+carry;
+            digits[i]=sum%10;
+            carry=sum>9?1:0;
+        }
+        if(carry>0)
+        {
+            int[] nums=new int[digits.length+1];
+            System.arraycopy(digits,0,nums,1,digits.length);
+            nums[0]=1;
+            return nums;
+        }
+        return digits;
+    }
+}
+c++:
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+      int carry,sum=0,i=digits.size()-1;
+      sum=digits[i]+1;
+      digits[i]=sum%10;
+      carry=sum>9?1:0;
+      while(carry>0&&i>0)
+      {
+      sum=digits[--i]+1;
+      digits[i]=sum%10;
+      carry=sum>9?1:0;
+      }
+      if(carry>0){
+          digits.insert(digits.begin(),1);
+          
+      }
+      return digits;
+    }
+};
