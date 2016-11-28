@@ -1,0 +1,41 @@
+java:
+//first one by using two points
+public class Solution {
+    public void moveZeroes(int[] nums) {
+        int j=0;
+        for(int i=0;i<nums.length;i++){
+            if(nums[i]!=0){
+                nums[j++]=nums[i];
+               
+            }
+        }
+        while(j<nums.length){
+            nums[j]=0;
+            j++;
+        }
+       
+    }
+}
+
+
+
+c++:
+//second one by using one point
+class Solution {
+public:
+    void moveZeroes(vector<int>& nums) {
+        int count = 0;
+    for(int i=0; i< nums.size(); i++)
+    {
+        if(nums[i]==0)
+        {
+            count++;
+        }
+        else if(count!=0)
+        {
+            nums[i-count] = nums[i];
+            nums[i] = 0;
+        }   
+    }
+    }
+};
