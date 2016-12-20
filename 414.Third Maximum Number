@@ -1,0 +1,56 @@
+java:
+public class Solution {
+    public int thirdMax(int[] nums) {
+        int max,mid,small,count=0;
+        max=mid=small=Integer.MIN_VALUE;
+        for(int x:nums){
+            
+            if(x ==Integer.MIN_VALUE){
+			   count++;
+		    }
+	    	if(x==max||x==mid)
+               continue;
+            if(x>max)
+             {
+                small=mid;
+                mid=max;
+                max=x;
+                count++;
+                 
+             }
+             else if(x>mid){
+                small=mid;
+                mid=x;
+                count++;
+             }
+             else if(x>small)
+             {
+                    small=x;
+                    count++;
+                   
+                 
+             }
+        }
+       
+         if( max>mid&&mid>small&count>=3)
+    	{
+		    return small;
+     	}  
+     	else 
+		    return max;
+    }
+}
+c++:
+//too slow
+class Solution {
+public:
+    int thirdMax(vector<int>& nums) {
+        set<int> top3;
+        for (int num : nums) {
+          top3.insert(num);
+          if (top3.size() > 3)
+            top3.erase(top3.begin());
+        }
+        return top3.size() == 3 ? *top3.begin() : *top3.rbegin();
+    }
+};
