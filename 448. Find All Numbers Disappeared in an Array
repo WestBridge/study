@@ -1,0 +1,69 @@
+java:
+//too slow.
+public class Solution {
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+        List<Integer> result = new ArrayList<Integer>();
+        for( int i=0;i< nums.length; i++){
+            int index = nums[i];
+            if(nums[Math.abs(index)-1] > 0){
+                nums[Math.abs(index)-1]= -nums[Math.abs(index)-1];
+            }
+        }
+        
+        for(int j =1 ;j <= nums.length ; j++){
+            if(nums[j-1] > 0){
+                result.add(j);
+            }
+        }
+        return result;
+        
+    
+    }
+}
+//another solution,not good as well.
+public class Solution {
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+       
+        for (int i = 0; i < nums.length; i++) {
+            while (nums[i] != i + 1 && nums[i] != nums[nums[i] - 1]) {
+                int tmp = nums[i];
+                nums[i] = nums[tmp - 1];
+                nums[tmp - 1] = tmp;
+            }
+        }
+        List<Integer> res = new ArrayList<Integer>();
+        for (int i = 0; i < nums.length; i++) {
+            if (nums[i] != i + 1) {
+                res.add(i + 1);
+            }
+        }
+        return res;
+      
+    
+    }
+}
+
+
+//simple one
+public class Solution {
+    public List<Integer> findDisappearedNumbers(int[] nums) {
+       
+       List<Integer> ret = new ArrayList<Integer>();
+        
+        for(int i = 0; i < nums.length; i++) {
+            int val = Math.abs(nums[i]) - 1;
+            if(nums[val] > 0) {
+                nums[val] = -nums[val];
+            }
+        }
+        
+        for(int i = 0; i < nums.length; i++) {
+            if(nums[i] > 0) {
+                ret.add(i+1);
+            }
+        }
+        return ret;
+      
+    
+    }
+}
