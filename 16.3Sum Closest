@@ -1,0 +1,55 @@
+C++;
+class Solution {
+public:
+    int threeSumClosest(vector<int>& nums, int target) {
+         //1.Sort the array;
+         //2.For each number v[i],we look for pair v[j] & v[k] 
+         //such that absolute value of(target-(v[i]+v[j]+v[k])) is minimum.
+         int ans=0,n=0;
+         int sum=0;
+         vector<int> v(nums.begin(),nums.end());
+         sort(v.begin(),v.end());
+         n=v.size();
+         ans=v[0]+v[1]+v[2];
+         for(int i=0;i<n-2;i++){
+             int j=i+1;
+             int k=n-1;
+             while(j<k){
+                 sum=v[i]+v[j]+v[k];
+                 if(abs(target-sum)<abs(target-ans))
+                 {
+                     ans=sum;
+                     if(ans==target) return ans;
+                 }
+                 sum>target?k--:j++;
+             }
+         }
+         return ans;
+    }
+};
+java：
+public class Solution {
+    public int threeSumClosest(int[] nums, int target) {
+      int sum,ans,n;
+      int[] v=nums;
+      Arrays.sort(v);
+      n=v.length;
+      ans=v[0]+v[1]+v[2];
+      for(int i=0;i<n-2;i++){
+         int j=i+1;
+         int k=n-1;
+         while(j<k){
+             sum=v[i]+v[j]+v[k];
+             if(Math.abs(target-ans)>Math.abs(target-sum)){
+                 ans=sum;
+                 if(target==ans) return ans;
+             }
+             if(sum>target) k--;
+             else j++;
+             
+         }
+          
+      }
+        return ans;
+    }
+}
