@@ -1,0 +1,77 @@
+c++:
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+       
+    
+        vector<vector<int>> ans;
+        int n=nums.size();
+        if(nums.empty()) return ans;
+        sort(nums.begin(),nums.end());
+       
+        for(int i=0;i<n;i++){
+            int target3=target-nums[i];
+            for(int j=i+1;j<n;j++){
+            int k=j+1;
+            int l=n-1;
+            int target2=target3-nums[j];
+            while(k<l){
+                int sum=nums[k]+nums[l];
+                if(sum<target2) k++;
+                else if(sum>target2) l--;
+                else{
+                    vector<int> fournums(4,0);
+                    fournums[0]=nums[i];
+                    fournums[1]=nums[j];
+                    fournums[2]=nums[k];
+                    fournums[3]=nums[l];
+                    ans.push_back(fournums);
+                   while(k<l&&fournums[2]==nums[k]) k++;
+                   while(k<l&&fournums[3]==nums[l]) l--;
+                }
+               
+                
+             }
+            
+             while(j+1<n && nums[j+1]==nums[j]) ++j;
+            
+        }
+         while (i+1<n && nums[i+1]==nums[i]) ++i; 
+    }
+    return ans;
+      
+  }
+};
+
+java:
+public class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        List<List<Integer>> ans=new ArrayList<List<Integer>>();
+        int n=nums.length;
+        if(nums==null || n<4) return ans;
+        Arrays.sort(nums);
+        for(int i=0;i<n;i++){
+           int target3=target-nums[i];
+            for(int j=i+1;j<n;j++){
+               int  target2=target3-nums[j];
+                int k=j+1;
+                int l=n-1;
+                while(k<l){
+                    int sum=nums[k]+nums[l];
+                    if(target2<sum) l--;
+                    else if(target2>sum) k++;
+                    else{
+                        ans.add(Arrays.asList(nums[i],nums[j],nums[k],nums[l]));
+                        int a=nums[k];
+                        int b=nums[l];
+                        while(k<l&&nums[k]==a) k++;
+                        while(k<l&&nums[l]==b) l--;
+                    }
+                }
+                while(j+1<n&&nums[j]==nums[j+1]) j++;
+            }
+              while(i+1<n&&nums[i]==nums[i+1]) i++;
+        }
+           return ans;
+    }
+}
