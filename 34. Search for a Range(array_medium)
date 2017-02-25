@@ -1,0 +1,68 @@
+C++:
+class Solution {
+public:
+    vector<int> searchRange(vector<int>& nums, int target) {
+        int n=nums.size();
+        vector<int> res(2,-1);
+       
+        if(n==0) 
+        {
+          
+            return res;
+            
+        }
+        
+        int start=0;int end=n-1;
+        while(start<end){
+            int mid=(start+end)/2;
+            if(nums[mid]<target)
+                start=mid+1;
+                else end=mid;
+            
+        }
+        if(nums[start]!=target) return res;
+        else res[0]=start;
+         end=n-1;
+        while(start<end)
+        {
+         int mid=(start+end)/2+1;
+         if(nums[mid]>target)
+         end=mid-1;
+         else start=mid;
+        }
+        res[1]=end;
+        
+        return res;
+            
+    }
+};
+java:
+public class Solution {
+    public int[] searchRange(int[] nums, int target) {
+        int n=nums.length;
+        int start=0;
+        int end=n-1;
+        int[] res=new int[2];
+        res[0]=-1;
+        res[1]=-1;
+        if(n==0){
+           
+            return res;
+        }
+        while(start<end){
+            int mid=(start+end)/2;
+            if(nums[mid]<target) start=mid+1;
+            else end=mid;
+        }
+        if(nums[start]!=target) return res;
+        else res[0]=start;
+        end=n-1;
+        while(start<end){
+            int mid=(start+end)/2+1;
+            if(nums[mid]>target) end=mid-1;
+            else start=mid;
+        }
+        res[1]=end;
+        return res;
+    }
+}
