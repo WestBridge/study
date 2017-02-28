@@ -1,0 +1,44 @@
+java:
+//回溯法
+public class Solution {
+    public List<List<Integer>> combinationSum(int[] candidates, int target) {
+        List<List<Integer>> result=new ArrayList<>();
+        Arrays.sort(candidates);
+        backtrack(result,new ArrayList<>(),candidates,target,0);
+        return result;
+    }
+    private void backtrack(List<List<Integer>> result,List<Integer> tempResult,int[]candidates,int remain,int start){
+        if(remain<0) return;
+        else if(remain==0) result.add(new ArrayList<>(tempResult));
+        else
+        {
+            for(int i=start;i<candidates.length&&remain>=candidates[i];i++){
+                tempResult.add(candidates[i]);
+                backtrack(result,tempResult,candidates,remain-candidates[i],i);
+                tempResult.remove(tempResult.size()-1);
+            }
+        }
+    }
+}
+C++:
+class Solution {
+public:
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        vector<vector<int>> result;
+        vector<int> tempResult;
+        sort(candidates.begin(),candidates.end());
+        backtrack(result,tempResult,candidates,target,0);
+        return result;
+    }
+private:
+    void backtrack(vector<vector<int>>& result,vector<int>& tempResult,vector<int> candidates,int remain,int start){
+        if(remain==0) result.push_back(tempResult);
+        else if(remain>0){
+            for(int i=start;i<candidates.size()&&candidates[i]<=remain;i++){
+                tempResult.push_back(candidates[i]);
+                backtrack(result,tempResult,candidates,remain-candidates[i],i);
+                tempResult.pop_back();
+            }
+        }
+    }
+};
