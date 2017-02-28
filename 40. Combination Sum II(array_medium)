@@ -1,0 +1,47 @@
+C++:
+class Solution {
+public:
+    vector<vector<int>> combinationSum2(vector<int>& candidates, int target) {
+       
+        vector<vector<int>> result;
+        vector<int> tempResult;
+        sort(candidates.begin(),candidates.end());
+        backtrack(result,tempResult,candidates,target,0);
+        return result;
+    }
+private:
+    void backtrack(vector<vector<int>>& result,vector<int>& tempResult,vector<int> candidates,int remain,int start){
+        if(remain==0) result.push_back(tempResult);
+        else if(remain>0){
+            for(int i=start;i<candidates.size()&&candidates[i]<=remain;i++){
+                if(i>start&&candidates[i]==candidates[i-1]) continue;
+                tempResult.push_back(candidates[i]);
+                backtrack(result,tempResult,candidates,remain-candidates[i],i+1);
+                tempResult.pop_back();
+            }
+        }
+
+    }
+};
+java:
+public class Solution {
+ public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        List<List<Integer>> result=new ArrayList<>();
+        Arrays.sort(candidates);
+        backtrack(result,new ArrayList<>(),candidates,target,0);
+        return result;
+    }
+    private void backtrack(List<List<Integer>> result,List<Integer> tempResult,int[]candidates,int remain,int start){
+        if(remain<0) return;
+        else if(remain==0) result.add(new ArrayList<>(tempResult));
+        else
+        {
+            for(int i=start;i<candidates.length&&remain>=candidates[i];i++){
+                if(start<i&&candidates[i]==candidates[i-1]) continue;
+                tempResult.add(candidates[i]);
+                backtrack(result,tempResult,candidates,remain-candidates[i],i+1);
+                tempResult.remove(tempResult.size()-1);
+            }
+        }
+    }
+}
