@@ -1,0 +1,33 @@
+java:
+public class Solution {
+    public boolean canJump(int[] nums) {
+        int lastPos=nums.length-1;
+        for(int i=nums.length-1;i>=0;i--){
+            if(i+nums[i]>=lastPos)
+               lastPos=i;
+        }
+        return lastPos==0;
+    }
+}
+
+C++:
+class Solution {
+public:
+    bool canJump(vector<int>& nums) {
+         int lastPos=nums.size()-1;
+        for(int i=nums.size()-1;i>=0;i--){
+            if(i+nums[i]>=lastPos)
+               lastPos=i;
+        }
+        return lastPos==0;
+    }
+};
+
+I just iterate and update the maximal index that I can reach
+
+bool canJump(int A[], int n) {
+    int i = 0;
+    for (int reach = 0; i < n && i <= reach; ++i)
+        reach = max(i + A[i], reach);
+    return i == n;
+}
