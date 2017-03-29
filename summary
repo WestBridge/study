@@ -1,0 +1,114 @@
+//////*****************JAVA**************//////////////////
+1.排序：
+int[ ] nums;
+Arrays.sort(nums);
+Arrays.sort(nums,startIndex,endIndex);//包括startIndex,不包括endIndex;
+
+2.绝对值
+Math.abs(target);
+
+3.判断是否为空
+int[ ] num;
+if(num==null) return 0;
+
+4.计算长度
+int[ ] num;
+length=num.length;
+ArrayList<Integer> list=new ArrayList<Integer>();
+length=list.size();
+
+5.添加元素
+ArrayList<List<Integer>> res = new ArrayList<List<Integer>>();
+res.add(Arrays.asList(1,2,3,4));
+
+6.反置数组
+Collections.reverse(ArrayList list);
+
+7.分配空间（提前分配数组空间提高效率）
+ ArrayList<Integer> list=new ArrayList<Integer>(length*num);
+ 
+8.定义结构体
+public class Interval {
+     int start;
+     int end;
+     Interval() { start = 0; end = 0; }
+     Interval(int s, int e) { start = s; end = e; }
+ }
+ 
+9.排序重载比较器
+ Collections.sort(intervals,new Comparator<Interval>(){
+            public int compare(Interval a,Interval b){
+                return a.start-b.start;
+            }
+        });
+intervals.sort((i1, i2) -> Integer.compare(i1.start, i2.start));//a lambda comparator (Java 8)
+
+//////*****************C++**************//////////////////
+1.排序
+vector<int> v(num.begin(), num.end());
+sort(v.begin(), v.end());
+
+2.绝对值
+abs(target);
+
+3.判断是否为空
+vector<int> num;
+if(num.empty()) return 0;
+
+4.计算长度
+vector<int> num;
+length=num.size();
+
+5.添加元素
+vector<int> fournums(4,0);
+ fournums[0]=1
+ fournums[1]=2;
+ fournums[2]=3;
+ fournums[3]=4;
+ ans.push_back(fournums);
+ 
+6.反置数组
+vector<int> num;
+reverse(begin(num)+i, end(num));
+
+7.交换元素
+int a ,b;
+swap(a,b);
+
+8..分配空间（提前分配数组空间提高效率）
+vector<int> spiral(m * n);
+
+9.定义结构体
+     struct Interval {
+     int start;
+     int end;
+     Interval() : start(0), end(0) {}
+     Interval(int s, int e) : start(s), end(e) {}
+ };
+ 
+ 10.排序重载比较器
+sort(intervals.begin(),intervals.end(),[ ](Interval a,Interval b){return a.start<b.start;});
+
+11.获取向量最后一个元素
+vector<int> res;
+res.back();
+
+12.vector常用方法
+// 定义一个vector
+std::vector<int> c;
+// 可以使用的功能
+c.clear()         移除容器中所有数据。
+c.empty()         判断容器是否为空。
+c.erase(pos)        删除pos位置的数据
+c.erase(beg,end) 删除[beg,end)区间的数据
+c.front()         传回第一个数据。
+c.insert(pos,elem)  在pos位置插入一个elem拷贝
+c.pop_back()     删除最后一个数据。
+c.push_back(elem) 在尾部加入一个数据。
+c.resize(num)     重新设置该容器的大小
+c.size()         回容器中实际数据的个数。
+c.begin()           返回指向容器第一个元素的迭代器
+c.end()             返回指向容器最后一个元素的迭代器
+
+13.二维vector定义
+vector< vector<int> > Array( 10, vector<int>(0) );
