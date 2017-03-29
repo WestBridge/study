@@ -42,7 +42,9 @@ public class Interval {
             }
         });
 intervals.sort((i1, i2) -> Integer.compare(i1.start, i2.start));//a lambda comparator (Java 8)
-
+10.二维数组初始化
+  int[][] res=new int[n][n];
+  
 //////*****************C++**************//////////////////
 1.排序
 vector<int> v(num.begin(), num.end());
