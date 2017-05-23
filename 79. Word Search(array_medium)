@@ -2,71 +2,95 @@ C++:
 class Solution {
 public:
     bool exist(vector<vector<char>>& board, string word) {
-        vector<int> cur;
+        
         for(int i=0;i<board.size();i++){
             for(int j=0;j<board[0].size();j++){
                 if(board[i][j]==word[0]){
-                    cur.push_back(i*board[0].size()+j+1);
-                    if(isMatchNext(board,word,i,j,1,cur)) 
+                    board[i][j]='\0';
+                    if(isFound(board,word,i,j,1)) 
                       return true;
-                    else 
-                      cur.pop_back();
+                    else
+                      board[i][j]=word[0];
                 }
             }
         }
         return false;
         
     }
-    bool isMatchNext(vector<vector<char>>& board,string word,int i,int j,int pos,vector<int> &cur){
-        
+    bool isFound(vector<vector<char>>& board,string word,int i,int j,int pos){
+       
         if(pos>=word.size()) return true;
-        vector<int>::iterator it;
-        
-        if(i-1>=0&&board[i-1][j]==word[pos]){ 
-          it=find(cur.begin(),cur.end(),(i-1)*board[0].size()+j+1);
-          if (it!=cur.end()) ;
-          else{
-            cur.push_back((i-1)*board[0].size()+j+1);
-            if(isMatchNext(board,word,i-1,j,pos+1,cur)) 
+        if(i-1>=0&&board[i-1][j]==word[pos]) {
+             board[i-1][j]='\0';
+             if(isFound(board,word,i-1,j,pos+1)) 
               return true;
-            else
-              cur.pop_back();
-          }
-        }
-        if(j+1<board[0].size()&&board[i][j+1]==word[pos]) {
-          it=find(cur.begin(),cur.end(),i*board[0].size()+j+2);
-          if (it!=cur.end()) ;
-          else{
-            cur.push_back(i*board[0].size()+j+2);
-            if(isMatchNext(board,word,i,j+1,pos+1,cur)) 
-              return true;
-            else
-              cur.pop_back();
-          }
-        }
-        if(i+1<board.size()&&board[i+1][j]==word[pos]) {
-          it=find(cur.begin(),cur.end(),(i+1)*board[0].size()+j+1);
-          if (it!=cur.end()) ;
-          else{
-             cur.push_back((i+1)*board[0].size()+j+1);
-             if(isMatchNext(board,word,i+1,j,pos+1,cur)) 
-                return true;
              else
-              cur.pop_back();
-          }
+              board[i-1][j]=word[pos];
         }
-        if(j-1>=0&&board[i][j-1]==word[pos]) {
-          it=find(cur.begin(),cur.end(),i*board[0].size()+j);
-          if (it!=cur.end()) ;
-          else{
-             cur.push_back(i*board[0].size()+j);
-             if(isMatchNext(board,word,i,j-1,pos+1,cur)) 
+        
+        if(j+1<board[0].size()&&board[i][j+1]==word[pos]) {
+             board[i][j+1]='\0';
+             if(isFound(board,word,i,j+1,pos+1)) 
                return true;
              else
-              cur.pop_back();
-          }
+               board[i][j+1]=word[pos];
+          
+        }
+        if(i+1<board.size()&&board[i+1][j]==word[pos]){
+          board[i+1][j]='\0';
+          if(isFound(board,word,i+1,j,pos+1)) 
+                return true;
+          else
+            board[i+1][j]=word[pos];
+        }
+        if(j-1>=0&&board[i][j-1]==word[pos]) {
+            
+          board[i][j-1]='\0';
+          if(isFound(board,word,i,j-1,pos+1)) 
+               return true;
+          else
+            board[i][j-1]=word[pos];
         }
         return false;
     }
 
 };
+
+java:
+public class Solution {
+    static boolean[][] visited;
+    public boolean exist(char[][] board, String word) {
+        visited = new boolean[board.length][board[0].length];
+        
+        for(int i = 0; i < board.length; i++){
+            for(int j = 0; j < board[i].length; j++){
+                if((word.charAt(0) == board[i][j]) && search(board, word, i, j, 0)){
+                    return true;
+                }
+            }
+        }
+        
+        return false;
+    }
+    
+    private boolean search(char[][]board, String word, int i, int j, int index){
+        if(index == word.length()){
+            return true;
+        }
+        
+        if(i >= board.length || i < 0 || j >= board[i].length || j < 0 || board[i][j] != word.charAt(index) || visited[i][j]){
+            return false;
+        }
+        
+        visited[i][j] = true;
+        if(search(board, word, i-1, j, index+1) || 
+           search(board, word, i+1, j, index+1) ||
+           search(board, word, i, j-1, index+1) || 
+           search(board, word, i, j+1, index+1)){
+            return true;
+        }
+        
+        visited[i][j] = false;
+        return false;
+    }
+}
