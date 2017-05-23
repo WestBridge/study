@@ -114,3 +114,17 @@ c.end()             返回指向容器最后一个元素的迭代器
 
 13.二维vector定义
 vector< vector<int> > Array( 10, vector<int>(0) );
+
+14.查找一个元素
+vector<int> vec;
+vector<int>::iterator it;
+int value=24;
+it=find(vec.begin(),vec.end(),value);
+if (it!=vec.end())
+{
+//vec中存在value值
+}
+else
+{
+//vec中不存在value值
+}
