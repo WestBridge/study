@@ -45,6 +45,15 @@ intervals.sort((i1, i2) -> Integer.compare(i1.start, i2.start));//a lambda compa
 10.二维数组初始化
   int[][] res=new int[n][n];
   
+11.String 型查找元素
+String word="ABC"；
+char a=word.charAt(index);
+
+12.String 型长度
+String word="ABD";
+length=word.length();
+
+  
 //////*****************C++**************//////////////////
 1.排序
 vector<int> v(num.begin(), num.end());
