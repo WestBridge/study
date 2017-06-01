@@ -1,0 +1,53 @@
+C++:
+//first solution, not a good one;
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        if(nums.size() <= 2) return nums.size();
+        int left = 0;
+        int i = 0;
+        
+        vector<int> :: iterator iter;
+        for(iter = nums.begin();iter != nums.end();iter++,i++){
+            
+            if(*iter != nums[left]) left = i;
+            else{
+                if((i - left) >=2){
+                  nums.erase(iter);
+                  iter--;
+                  i--;
+                    
+                }
+            }
+            
+        }
+        return nums.size();
+        
+    }
+};
+//easy solution
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int i = 0;
+        for(int n : nums){
+            if(i < 2 || n > nums[i-2])
+                nums[i++] = n;
+           
+        }
+        return i;
+    }
+};
+
+java:
+public class Solution {
+    public int removeDuplicates(int[] nums) {
+        int i = 0;
+        for(int n : nums){
+            if(i < 2 || n > nums[i-2])
+                nums[i++] = n ;
+         
+        }
+        return i;
+    }
+}
