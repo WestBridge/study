@@ -1,0 +1,72 @@
+C++:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode *buildTree(vector<int> &preorder, vector<int> &inorder) {
+        if (preorder.size() == 0) return NULL;
+        int ppre = 0, pin = 0;
+        TreeNode *root = new TreeNode(preorder.at(ppre++));
+        TreeNode *p = NULL;
+        stack<TreeNode *> roots;
+        roots.push(root);
+        
+        while (true) {
+            if (inorder.at(pin) == roots.top()->val) {
+                p = roots.top();
+                roots.pop();
+                pin++;
+                if (pin == inorder.size()) break;
+                if (roots.size() && inorder.at(pin) == roots.top()->val) continue;
+                p->right = new TreeNode(preorder.at(ppre));
+                ppre++;
+                roots.push(p->right);
+            }
+            else {
+                p = new TreeNode(preorder.at(ppre));
+                ppre++;
+                roots.top()->left = p;
+                roots.push(p);
+            }
+        }
+        
+        return root;
+    }
+};
+
+JAVA:
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+public class Solution {
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        return helper(0, 0, inorder.length - 1, preorder, inorder);
+    }
+    
+    public TreeNode helper(int preStart, int inStart, int inEnd, int[] preorder, int[] inorder){
+        if(preStart > preorder.length-1 || inStart > inEnd)
+          return null;
+         TreeNode root = new TreeNode(preorder[preStart]);
+         int index = 0;
+         for(int i = inStart; i <= inEnd; i++){
+             if(inorder[i] == root.val)
+                 index = i;
+         }
+         root.left = helper(preStart + 1, inStart, index - 1, preorder, inorder);
+         root.right = helper(preStart + index - inStart + 1, index + 1, inEnd, preorder, inorder);
+         return root;
+    }
+}
