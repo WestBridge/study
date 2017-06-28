@@ -29,3 +29,45 @@ public class Solution {
 }
 
 C++:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+        if(inorder.size() == 0) return NULL;
+        int inP = inorder.size() - 1, postP = postorder.size() - 1;
+        TreeNode* root = new TreeNode(postorder[postP--]);
+        TreeNode* curP = NULL;
+        stack<TreeNode*> roots;
+        roots.push(root);
+        while(true){
+            if(inorder[inP] == roots.top()->val ){
+                curP = roots.top();
+                roots.pop();
+                inP--;
+                if(inP < 0) break;
+                if(roots.size() && inorder[inP] == roots.top()->val) continue;
+                curP->left = new TreeNode(postorder[postP]);
+                postP--;
+                roots.push(curP->left);
+                
+            }
+            else{
+                curP = new TreeNode(postorder[postP]);
+                postP--;
+                roots.top()->right = curP;
+                roots.push(curP);
+                
+            }
+            
+        }
+        return root;
+    }
+};
