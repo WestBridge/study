@@ -1,0 +1,51 @@
+C++:
+//first thought
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        int length = triangle.size();
+        if(length == 0) return triangle[0][0];
+        for(int i = 1; i < length; i++){
+            triangle[i][0] = triangle[i][0] + triangle[i-1][0];
+            int j;
+            for(j = 1; j < i; j++)
+                triangle[i][j] = triangle[i][j] + min(triangle[i - 1][j], triangle[i - 1][j - 1]);
+            triangle[i][j] = triangle[i][j] + triangle[i-1][j - 1];
+            
+        }
+        for(int k = 1; k < length; k++)
+        {
+            
+      triangle[length - 1][0] = triangle[length - 1][0] > triangle[length - 1][k] ? triangle[length - 1][k] : triangle[length - 1][0];
+        }
+      return triangle[length - 1][0];
+    }
+};
+
+//another way
+class Solution {
+public:
+    int minimumTotal(vector<vector<int>>& triangle) {
+        vector<int> mini = triangle[triangle.size() - 1];
+        for (int i = triangle.size() - 2; i >= 0; i--){
+            for(int j = 0; j < triangle[i].size(); j++){
+                mini[j] = triangle[i][j] + min(mini[j],mini[j+1]);
+            }
+        }
+        return mini[0];
+      
+    }
+};
+
+java:
+public class Solution {
+    public int minimumTotal(List<List<Integer>> triangle) {
+        int[] mini = new int[triangle.size() + 1];
+        for(int i = triangle.size() - 1; i >= 0; i--){
+            for(int j = 0; j < triangle.get(i).size(); j++){
+                mini[j] = triangle.get(i).get(j) + Math.min(mini[j],mini[j + 1]);
+            }
+        }
+        return mini[0];
+    }
+}
