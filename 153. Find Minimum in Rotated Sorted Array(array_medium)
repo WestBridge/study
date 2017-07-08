@@ -1,0 +1,36 @@
+C++:
+class Solution {
+public:
+    int findMin(vector<int>& nums) {
+       
+        int low = 0, high = nums.size() - 1;
+        while(low <= high){
+            int mid = (low + high) / 2;
+            if(nums[low] > nums[high]) 
+            {
+                if(nums[mid] >= nums[low])  low = mid + 1;
+                else high = mid;                  
+            }
+            else
+                return nums[low];   
+        }   
+        
+    }
+};
+java:
+public class Solution {
+    public int findMin(int[] nums) {
+        int low = 0, high = nums.length - 1;
+        while(low <= high){
+            int mid = (low + high) / 2;
+            if(nums[low] > nums[high]){
+                if(nums[mid] >= nums[low]) low = mid + 1;
+                else high = mid;
+                
+            }
+            else
+                break;
+        }
+        return nums[low];
+    }
+}
