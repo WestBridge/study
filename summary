@@ -53,6 +53,9 @@ char a=word.charAt(index);
 String word="ABD";
 length=word.length();
 
+13.最大最小值
+Math.max(a,b);
+Math.min(a,b);
   
 //////*****************C++**************//////////////////
 1.排序
