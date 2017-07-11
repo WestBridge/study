@@ -57,6 +57,12 @@ length=word.length();
 Math.max(a,b);
 Math.min(a,b);
   
+14.Java的ArrayList.add(e)和C++的vector.push_back(e)的区别
+在Java的ArrayList.add(e)中，传入的是引用，因此当你传入e以后，再改变e的成员，则ArrayList里的e也同样会改变，
+因为本身e和ArrayList中的e就是同一个东西。
+
+而C++的vector.push_back(e)则会调用拷贝构造函数，因此当你传入e以后，再改变e的成员，则vector里的e不会变，因为已经是两个对象了。
+
 //////*****************C++**************//////////////////
 1.排序
 vector<int> v(num.begin(), num.end());
