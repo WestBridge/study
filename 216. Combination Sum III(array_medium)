@@ -1,0 +1,45 @@
+java:
+public class Solution {
+    public List<List<Integer>> combinationSum3(int k, int n) {
+        List<List<Integer>> res = new ArrayList<List<Integer>>();
+        find(k, n, 1, res, new ArrayList<Integer>());
+        return res;
+    }
+    public void find(int k, int n, int start, List<List<Integer>> res, ArrayList<Integer> set){
+        if(set.size() == k && n == 0){
+                List<Integer> temp = new ArrayList<Integer>(set);
+                res.add(temp);    
+              
+        }
+        else{
+            
+            for(int i = start; i <= 9 && n > 0 && set.size() < k; i++){
+               set.add(i);
+               find(k, n - i, i + 1, res, set);
+               set.remove(set.size() - 1);
+             }
+        }
+    }
+}
+C++:
+class Solution {
+public:
+    vector<vector<int>> combinationSum3(int k, int n) {
+        vector<vector<int>>  res;
+        vector<int> set;
+        find(k, n, 1, res, set);
+        return res;
+    }
+    void find(int k, int target, int start, vector<vector<int>> &res, vector<int> &set){
+        if(k == 0 && target == 0){
+            res.push_back(set);
+        }
+        else{
+            for(int i = start; i <= target && i <= 9; i++){
+                set.push_back(i);
+                find(k - 1, target - i, i + 1, res, set);
+                set.pop_back();
+            }
+        }
+    }
+};
