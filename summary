@@ -140,3 +140,11 @@ else
 {
 //vec中不存在value值
 }
+
+15.函数的形参与实参
+C++提供了传递变量的引用。形参是引用变量，和实参是一个变量，调用函数时，形参(引用变量)指向实参变量
+单元。这种通过形参引用可以改变实参的值。
+vector<vector<int>>  res;
+vector<int> set;
+find(k, n, 1, res, set);//实参
+void find(int k, int target, int start, vector<vector<int>> &res, vector<int> &set){}//形参
