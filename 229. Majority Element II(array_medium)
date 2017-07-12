@@ -1,0 +1,76 @@
+C++:
+class Solution {
+public:
+    vector<int> majorityElement(vector<int>& nums) {
+        int first, second, fcount = 0, scount = 0;
+        for(int i : nums){
+            if(i == first){
+                fcount++;
+            }
+            else if(i == second){
+                scount++;
+                }
+            else if(fcount == 0){
+                first = i;
+                fcount++;
+                
+            }
+            else if(scount == 0){
+              second = i;
+                scount++;
+            }
+            else{
+                fcount--;
+                scount--;
+            }
+        }
+        fcount = scount = 0;
+        for(int i : nums){
+            if(i == first) fcount++;
+            else if(i == second) scount++;
+        }
+        vector<int> res;
+        if(fcount > (nums.size() / 3))res.push_back(first);
+        if(scount > (nums.size() / 3)) res.push_back(second);
+        return res;
+    }
+};
+
+java:
+public class Solution {
+    public List<Integer> majorityElement(int[] nums) {
+         List<Integer> list = new ArrayList<Integer>();
+        if(nums.length == 0 || nums == null) return list;
+        int first = nums[0], second = nums[0], fcount = 0, scount = 0;
+        for(int i : nums){
+           if( i == first){
+               fcount++;
+           }
+            else if(i == second){
+                scount++;
+                
+            }
+            else if(0 == fcount){
+                first = i;
+                fcount++;
+            }
+            else if(0 == scount){
+                second = i;
+                scount++;
+            }
+            else{
+                fcount--;
+                scount--;
+            }
+        }
+        fcount = scount = 0;
+       
+        for(int i : nums){
+            if(i == first) fcount++;
+            else if(i == second) scount++;
+        }
+        if(fcount > (nums.length / 3)) list.add(first);
+        if(scount > (nums.length / 3)) list.add(second);
+        return list;
+    }
+}
