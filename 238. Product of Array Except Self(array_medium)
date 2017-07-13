@@ -1,0 +1,60 @@
+C++:
+//first thought
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        vector<int> output(nums.size());
+        int product = 1;
+        output[0] = 1;
+        for(int i = 1; i < nums.size(); i++){          
+            product *= nums[i - 1];
+            output[i] = product;
+        }
+        product = 1;
+        for(int i = nums.size() - 2; i >= 0; i--){
+            product *= nums[i + 1];
+            output[i] *= product;
+        }
+        return output;
+    }
+};
+//merged one
+class Solution {
+public:
+    vector<int> productExceptSelf(vector<int>& nums) {
+        vector<int> output(nums.size(), 1);
+        int fromBegin = 1, fromLast = 1;
+        for(int i = 0; i < nums.size(); i++){ 
+            output[i] *= fromBegin;
+            fromBegin *= nums[i];
+            output[nums.size() - i - 1] *= fromLast;
+            fromLast *= nums[nums.size() - i - 1];
+        }
+        return output;
+    }
+};
+java:
+public class Solution {
+    public int[] productExceptSelf(int[] nums) {
+        int[] res = new int[nums.length];
+        int product = 1;
+        res[0] = 1;
+        
+        for(int i = 1; i < nums.length; i++){
+            product *=  nums[i - 1];
+            res[i] = product;
+           
+        }
+        product = 1;
+        for(int i = nums.length - 2; i >= 0; i--){
+            product *=  nums[i + 1];
+            res[i] *= product;
+            
+        }
+        return res;
+    }
+}
+
+      
+      
+       
