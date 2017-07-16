@@ -1,0 +1,77 @@
+java:
+public class Solution {
+    public void gameOfLife(int[][] board) {
+        if(board.length == 0 || board ==null)
+            return ;
+        int m = board.length, n = board[0].length;
+        
+        for(int i = 0; i < m; i++ ){
+            for(int j = 0; j < n; j++){
+                int lives = liveNeighbors(board, m, n, i, j);
+                if(board[i][j] == 1 && lives >=2 && lives <= 3)
+                      board[i][j] = 3;
+                
+                if(board[i][j] == 0 && lives == 3)
+                      board[i][j] = 2;
+            }
+        }
+         for(int i = 0; i < m; i++ ){
+            for(int j = 0; j < n; j++){
+               board[i][j] >>= 1;
+            }
+         }
+        
+    }
+    
+    public int liveNeighbors(int[][] board, int m, int n, int i, int j){
+        int lives = 0;
+        for(int k = Math.max(i - 1, 0); k <= Math.min(i + 1, m - 1); k++){
+            for(int l = Math.max(j - 1, 0); l <= Math.min(j + 1, n- 1); l++){
+               
+                    lives += board[k][l] & 1;
+                
+            }
+        }
+        lives -= board[i][j] & 1;
+        return lives;
+}
+}
+C++:
+class Solution {
+public:
+    void gameOfLife(vector<vector<int>>& board) {
+          if(board.size() == 0 )
+            return ;
+        int m = board.size(), n = board[0].size();
+        
+        for(int i = 0; i < m; i++ ){
+            for(int j = 0; j < n; j++){
+                int lives = liveNeighbors(board, m, n, i, j);
+                if(board[i][j] == 1 && lives >=2 && lives <= 3)
+                      board[i][j] = 3;
+                
+                if(board[i][j] == 0 && lives == 3)
+                      board[i][j] = 2;
+            }
+        }
+         for(int i = 0; i < m; i++ ){
+            for(int j = 0; j < n; j++){
+               board[i][j] >>= 1;
+            }
+         }
+        
+    }
+    int liveNeighbors(vector<vector<int>> board, int m, int n, int i, int j){
+         int lives = 0;
+        for(int k = max(i - 1, 0); k <= min(i + 1, m - 1); k++){
+            for(int l = max(j - 1, 0); l <= min(j + 1, n- 1); l++){
+               
+                    lives += board[k][l] & 1;
+                
+            }
+        }
+        lives -= board[i][j] & 1;
+        return lives;
+
+    }
+};
