@@ -128,7 +128,9 @@ c.push_back(elem) 在尾部加入一个数据。
 c.resize(num)     重新设置该容器的大小
 c.size()         回容器中实际数据的个数。
 c.begin()           返回指向容器第一个元素的迭代器
-c.end()             返回指向容器最后一个元素的迭代器
+c.end()             返回指向容器最后一个元素下一个位置的迭代器
+c.back()            返回当前vector最末一个元素的引用。
+c.emplace_back()    插入一个元素，比push_back()高效
 
 13.二维vector定义
 vector< vector<int> > Array( 10, vector<int>(0) );
