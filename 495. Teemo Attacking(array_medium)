@@ -1,0 +1,45 @@
+C++:
+class Solution {
+public:
+    int findPoisonedDuration(vector<int>& timeSeries, int duration) {
+        int sum = 0, right = 0;
+        if(timeSeries.size() == 0 || duration == 0) return sum;
+        right = timeSeries[0] + duration - 1;
+        sum += duration;
+        for(int i = 1; i < timeSeries.size(); i++){
+            
+            if(timeSeries[i] > right){
+                 sum += duration;
+                 right = timeSeries[i] + duration - 1;
+            }
+            else{
+                 
+                 sum += timeSeries[i] + duration - 1 - right;
+                 right = timeSeries[i] + duration - 1;
+                 
+            }
+               
+        }
+        return sum;
+    }
+};
+JAVA:
+public class Solution {
+    public int findPoisonedDuration(int[] timeSeries, int duration) {
+        int sum = 0, right;
+        if(timeSeries == null || timeSeries.length == 0 || duration == 0) return sum;
+        right = timeSeries[0] + duration - 1;
+        sum += duration;
+        for(int i = 1; i < timeSeries.length; i++){
+            if(timeSeries[i] > right){
+                sum += duration;
+                right = timeSeries[i] + duration - 1;
+            }
+            else{
+                sum += timeSeries[i] + duration - 1 - right;
+                right = timeSeries[i] + duration - 1;
+            }
+        }
+        return sum;
+    }
+}
