@@ -16,3 +16,76 @@ public:
         return maxSize;
     }
 };
+//Approach #2 Using Visited Array [Accepted]
+class Solution {
+public:
+    int arrayNesting(vector<int>& nums) {
+       bool visited[nums.size()];
+        for(int i = 0; i < nums.size(); i++)
+            visited[i] = false;
+        int res = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            if (!visited[i]) {
+                int start = nums[i], count = 0;
+                do {
+                    start = nums[start];
+                    count++;
+                    visited[start] = true;
+                }
+                while (start != nums[i]);
+                res = max(res, count);
+            }
+        }
+        return res;
+    }
+};
+//Approach #3 Without Using Extra Space [Accepted]
+class Solution {
+public:
+    int arrayNesting(vector<int>& nums) {
+        int res = 0;
+        for (int i = 0; i < nums.size(); i++) {
+            if(nums[i] != -1){
+                 int count = 0, j = nums[i];
+                 while(nums[j] != -1){
+                     count++;
+                     int temp = j;
+                     j = nums[j];
+                     nums[temp] = -1;   
+                     
+                 }
+                 res = max(res, count);
+               }
+        
+        }
+        return res;
+    }
+};
+
+ JAVA:
+ public class Solution {
+    public int arrayNesting(int[] nums) {
+        int res = 0;
+        for(int i =0; i < nums.length; i++){
+            if(nums[i] != -1){
+                int count = 0, start = nums[i];
+                while(nums[start] != -1){
+                    count++;
+                    int temp = start;
+                    start = nums[start];
+                    nums[temp] = -1;
+                    
+                }
+                res = Math.max(res, count);
+            }
+            
+        }
+        return res;
+    }
+}
+         
+             
+               
+                  
+                   
+              
