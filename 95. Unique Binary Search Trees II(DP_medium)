@@ -1,0 +1,80 @@
+C++:
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    vector<TreeNode*> buildTree(int left, int right){
+        vector<TreeNode*> root;
+        if(left > right){
+            root.push_back(NULL);
+            return root;
+        }
+        for(int i=left; i<=right; i++){
+            vector<TreeNode*> left_tree=buildTree(left,i-1);
+            vector<TreeNode*> right_tree=buildTree(i+1,right);
+            for(int j=0; j<left_tree.size(); j++){
+                for(int k=0; k<right_tree.size(); k++){
+                    TreeNode *r=new TreeNode(i);
+                    r->left=left_tree[j];
+                    r->right=right_tree[k];
+                    root.push_back(r);
+                }
+            }
+            
+        }
+        return root;
+    }
+    
+    vector<TreeNode*> generateTrees(int n) {
+        vector<TreeNode*> root;
+        if(n==0)
+            return root;
+        return buildTree(1,n);
+    }
+};
+JAVA:
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode(int x) { val = x; }
+ * }
+ */
+class Solution {
+    public List<TreeNode> buildTree(int left, int right){
+        List<TreeNode> root = new ArrayList<TreeNode>();
+        if(left>right){
+            root.add(null);
+            return root;
+        }
+        for(int i=left; i<=right; i++){
+            List<TreeNode> left_tree = buildTree(left,i-1);
+            List<TreeNode> right_tree = buildTree(i+1,right);
+            for(TreeNode lnode:left_tree){
+               for(TreeNode rnode:right_tree){
+               
+                    TreeNode r = new TreeNode(i);
+                    r.left=lnode;
+                    r.right=rnode;
+                    root.add(r);
+                }
+            }
+            
+        }
+        return root;
+    }
+    public List<TreeNode> generateTrees(int n) {
+        if(n==0)
+            return new ArrayList<TreeNode>();
+        return buildTree(1,n);
+    }
+}
