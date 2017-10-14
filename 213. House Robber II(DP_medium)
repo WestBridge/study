@@ -1,0 +1,41 @@
+C++:
+class Solution {
+public:
+    int rob(vector<int>& nums) {
+       int n =nums.size();
+        if(n < 2) return n?nums[0]:0;
+        return max(subrob(nums, 0, n-2), subrob(nums, 1, n-1));
+        
+    }
+    int  subrob(vector<int>& nums, int l, int r){       
+        int pre, cur;
+        pre = cur = 0;    
+        for(int i = l; i <= r; i++){
+            int temp = cur;
+            cur = max(temp, nums[i] + pre);         
+            pre = temp;           
+        }       
+        return cur;
+    }
+};
+
+JAVA:
+class Solution {
+    public int rob(int[] nums) {
+        int n = nums.length;
+        if(n == 1) return nums[0];
+        return Math.max(subrob(nums, 0, n-2), subrob(nums, 1, n-1));
+        
+    }
+     
+    public int  subrob(int[] nums, int l, int r){       
+        int pre, cur;
+        pre = cur = 0;    
+        for(int i = l; i <= r; i++){
+            int temp = cur;
+            cur = Math.max(temp, nums[i] + pre);         
+            pre = temp;           
+        }       
+        return cur;
+    }
+}
