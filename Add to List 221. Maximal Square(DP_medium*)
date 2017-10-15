@@ -1,0 +1,44 @@
+//C++:23m
+class Solution {
+public:
+    int maximalSquare(vector<vector<char>>& matrix) {
+        if(matrix.empty()) return 0;
+        int m = matrix.size();
+        int n = matrix[0].size();
+        int maxsquare=0, pre=0;
+        vector<int> dp(m+1,0);
+        for(int j=0; j<n; j++){
+            for(int i=1; i<=m; i++){
+                int temp = dp[i];
+                if(matrix[i-1][j]=='1'){
+                    dp[i]=min(dp[i],min(dp[i-1],pre))+1;
+                    maxsquare=max(maxsquare,dp[i]);
+                }
+                else dp[i]=0;
+                pre=temp;
+            }
+        }
+         return maxsquare*maxsquare;
+    }
+  
+};
+//better way
+class Solution {
+public:
+    int maximalSquare(vector<vector<char>>& matrix) {
+        int rst = 0;
+    for(int i=0; i<matrix.size(); ++i)
+    {
+        for(int j=0; j<matrix[0].size(); ++j)
+        {
+            int a = (i&&j) ? matrix[i-1][j-1] : 0;
+            int b = (i) ? matrix[i-1][j] : 0;
+            int c = (j) ? matrix[i][j-1] : 0;
+            matrix[i][j] = (matrix[i][j]>'0') ? (min(a, min(b, c))+1) : 0;        
+            rst = max(rst, matrix[i][j]*matrix[i][j]);
+        }
+    }
+    return rst;
+    }
+  
+};
