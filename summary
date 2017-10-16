@@ -68,6 +68,17 @@ java.util.Random rand = new java.util.Random();
 int n ;
 rand.nextInt(n);
 
+16.字符和数字的转换
+int i = 2;
+char a = (char)i;
+System.out.print(a);//无结果
+System.out.print(a*a);//输出4
+
+char s = '0';
+int i = s;
+System.out.print(i);//输出48
+System.out.print(i*i);//输出48*48
+
 //////*****************C++**************//////////////////
 1.排序
 vector<int> v(num.begin(), num.end());
@@ -165,3 +176,14 @@ void find(int k, int target, int start, vector<vector<int>> &res, vector<int> &s
 16.调用随机函数
 int n;
 rand() % n;
+
+17.字符和数字的转换
+int i = 2;
+char a = i;
+cout<<a<<endl;//无结果
+cout<<a*a<<endl;//输出4
+
+char s = '0';
+int j = s;
+cout<<j<<endl;//输出48
+cout<<j*j<<endl;//输出2304
