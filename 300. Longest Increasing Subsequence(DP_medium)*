@@ -57,4 +57,30 @@ public class Solution {
         return len;
     }
 }
+class Solution {
+public:
+    int lengthOfLIS(vector<int>& nums) {
+    vector<int> dp;
+    dp.resize(nums.size(),0);
+    int len = 0;
+    for(int x : nums){
+        int low = 0, high = len;
+        while(low < high){
+            int mid =(low+high)/2;
+            if(x > dp[mid])
+                low = mid + 1;
+            else if(x < dp[mid])
+                high = mid;
+           
+        }
+        dp[low] = x;
+        if(low==len) len++;
+      }
+    return len;
+    }
+};
 
+
+
+ 
+  
