@@ -1,0 +1,107 @@
+JAVA:
+// Time Limit Exceeded
+class Solution {
+    public int getMoneyAmount(int n) {
+          return helper(1,n);
+    }
+    public int helper(int start, int end){
+
+        if(end - start < 1) return 0;
+        else if(end - start == 1) return start;
+        else if(end - start == 2) return start + 1;
+        else{
+            int min = end * end,money = 0;
+            for(int k = start; k <= end; k++){
+                money = Math.max(helper(start,k - 1),helper(k + 1, end)) + k;
+                min = Math.min(money, min);
+            }
+            return min;
+        }
+    }
+}
+
+//Your runtime beats 9.86 % of java submissions.
+class Solution {
+    public int getMoneyAmount(int n) {
+          int[][] dp = new int[n+1][n+1];
+          for(int i = 0; i < n + 1; i++)
+            Arrays.fill(dp[i], -1);
+          return helper(1,n,dp);
+    }
+    public int helper(int start, int end, int[][] dp){
+        if(dp[start][end] != -1)
+            return dp[start][end];
+        else{
+            if(end - start < 1) {
+               dp[start][end] = 0;
+               return 0;
+            }
+            else if(end - start == 1) {
+                dp[start][end] = start;
+                return start;
+            }
+            else if(end - start == 2) {
+                dp[start][end] = start + 1;
+                return start + 1;
+            }
+            else{
+              int min = end * end,money = 0;
+              for(int k = start; k <= end; k++){
+                  if(k == end){
+            		  money = helper(start,k - 1,dp) + k;
+            	  }
+            	  else{
+                      money = Math.max(helper(start,k - 1,dp),helper(k + 1, end,dp)) + k;
+            	  }
+                  min = Math.min(money, min);
+              }
+              dp[start][end] = min;
+              return min;
+         }
+        }
+        
+    }
+}
+//better one
+class Solution {
+    public int getMoneyAmount(int n) {
+          int[][] dp = new int[n+1][n+1];
+          return helper(1,n,dp);
+    }
+    public int helper(int start, int end, int[][] dp){
+        if(start >= end) return 0;   
+        if(dp[start][end] > 0) return dp[start][end];
+           
+        int min = end * end;
+        for(int k = start; k <= end; k++){
+           int money = Math.max(helper(start,k - 1,dp),helper(k + 1, end,dp)) + k;
+           min = Math.min(money, min);
+        }
+        dp[start][end] = min;
+        return min;
+       
+    }
+}
+
+c++:
+class Solution {
+public:
+    int getMoneyAmount(int n) {
+        vector<vector<int>> dp(n + 1, vector<int>(n + 1, 0));
+        return helper(1, n, dp);
+    }
+    int helper(int start, int end, vector<vector<int>>& dp ){
+        if(start >= end) return 0;
+        if(dp[start][end] > 0) return dp[start][end];
+        int res = end *end;
+        for(int k = start; k <= end; k++){
+            int money = max(helper(start, k - 1, dp), helper(k + 1, end, dp)) + k;
+            res = min(res, money);
+        }
+        dp[start][end] = res;
+        return res;
+    }
+};
+
+       
+ 
