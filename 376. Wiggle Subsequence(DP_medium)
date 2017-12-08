@@ -1,0 +1,56 @@
+JAVA:
+class Solution {
+    public int wiggleMaxLength(int[] nums) {
+         int length = nums.length;
+		if (length <= 1)
+			return length;
+
+		int k = 0;
+		while (k < length - 1 && nums[k] == nums[k + 1]) {
+			k++;
+		}
+		if( k == length - 1) return 1;
+		int res = 2;
+		boolean pre = nums[k] < nums[k + 1];
+		for (int i = k + 1; i < length - 1; i++) {
+
+			if (pre && nums[i] > nums[i + 1]) {	
+				res++;
+				pre = !pre;
+			} 
+			else if (!pre && nums[i] < nums[i + 1]) {			
+				res++;
+				pre = !pre;
+			}
+
+		}
+		return res;
+    }
+}
+C++:
+class Solution {
+public:
+    int wiggleMaxLength(vector<int>& nums) {
+      int length = nums.size();
+      if(length <= 1) return length;
+      int k = 0;
+      while(k < length - 1 && nums[k] == nums[k + 1]){
+          k++;
+      }
+      if(k == length - 1) return 1;
+      int res = 2;
+      bool pre = nums[k] < nums[k + 1];
+      for(int i = k + 1; i < length - 1; i++){
+          if(pre && nums[i] > nums[i + 1]){
+              res++;
+              pre = !pre;
+          }
+          else if(!pre && nums[i] < nums[i + 1]){
+              res++;
+              pre = !pre;
+          }
+      }
+
+        return res;
+    }
+};
