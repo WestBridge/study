@@ -1,0 +1,127 @@
+JAVA:
+public class Solution {
+  
+    Map<Integer, Boolean> map;
+    boolean[] used;
+    public boolean canIWin(int maxChoosableInteger, int desiredTotal) {
+        if(maxChoosableInteger * (maxChoosableInteger + 1) / 2 < desiredTotal) return false;
+        if(maxChoosableInteger >= desiredTotal) return true;
+        map = new HashMap<Integer, Boolean>();
+        used = new boolean[maxChoosableInteger + 1];
+        return helper(desiredTotal);
+    } 
+    public boolean helper(int desiredTotal){
+        if(desiredTotal <= 0) return false;
+        int key = format(used);
+        if(!map.containsKey(key)){
+            for(int i = 1; i < used.length; i++){
+                if(!used[i]){
+                    used[i] = true;
+                    if(!helper(desiredTotal - i)){
+                         used[i] = false;
+                         map.put(key, true);
+                         return true;
+                    }
+                    used[i] = false;  
+                }
+            }
+            map.put(key, false);
+        }
+        return map.get(key);
+    }
+    public int format(boolean[] used){
+        int num = 0;
+        for(boolean b : used){
+            num <<= 1;
+            if(b) num |= 1;
+        }
+        return num;
+    }
+}
+C++:
+//bad one
+class Solution {
+    private:
+    map<int,bool> m;
+    vector<bool> used;
+public:
+    
+    bool canIWin(int maxChoosableInteger, int desiredTotal) {
+        if(maxChoosableInteger * (maxChoosableInteger + 1) / 2 < desiredTotal) return false;
+        if(maxChoosableInteger >= desiredTotal) return true;
+        used.resize(maxChoosableInteger + 1);
+        return helper(desiredTotal);
+    }
+    bool helper(int desiredTotal){
+        if(desiredTotal <= 0) return false;
+        int key = format(used);
+        if(m.find(key) == m.end()){
+            for(int i = 1; i < used.size(); i++){
+                if(!used[i]){
+                    used[i] = true;
+                    if(!helper(desiredTotal - i)){
+                        used[i] = false;
+                        m[key] = true;
+                        return true;
+                    }
+                    used[i] = false;
+                }
+            }
+            m[key] = false;
+           
+        }
+         return m[key];
+    }
+    int format(vector<bool> used){
+        int num = 0;
+        for(bool b : used){
+            num <<= 1;
+            if(b) num |= 1;
+        }
+        return num;
+    }
+};
+//better one
+class Solution {
+private:
+    int maxn;
+    map<int, bool> m;
+public:
+    bool canIWin(int maxChoosableInteger, int desiredTotal) {
+        maxn = maxChoosableInteger;
+        if(maxn >= desiredTotal) return true;
+        if((1 + maxn) * maxn / 2 < desiredTotal) return false;
+        return canWin(desiredTotal, 0);
+    }
+    bool canWin(int target, int visited) {
+        if(m.find(visited) != m.end()) return m[visited];
+        for(int i = 1; i <= maxn; i++) {
+            int mask = (1 << i);
+            if((mask & visited) == 0 && (i >= target || canWin(target - i, mask | visited) == false)) {
+                m[visited] = true;
+                return true;
+            }
+        }
+        m[visited] = false;
+        return false;
+    }
+};
+//best one
+class Solution {
+private:
+     int m[1<<20] = {}; 
+public:
+     bool canIWin(int M, int T) {
+      int S = M*(M+1)/2; 
+      return T<2? true : S<T? false : S==T? M%2 : dfs(M,T,0);
+    }
+    
+    bool dfs(int M, int T, int k) {
+      if (T<=0 || m[k]) return T>0 && m[k]>0; 
+      for (int i = 0; i < M; ++i)
+        if (!(k&1<<i) && !dfs(M, T-i-1, k|1<<i)) return m[k] = 1; 
+      return !(m[k] = -1); 
+    }
+    
+   
+};
