@@ -83,6 +83,7 @@ System.out.print(i*i);//输出48*48
 int []dp = new int[amount + 1];
 Arrays.fill(dp, amount + 1);
 
+
 //////*****************C++**************//////////////////
 1.排序
 vector<int> v(num.begin(), num.end());
@@ -193,4 +194,22 @@ cout<<j<<endl;//输出48
 cout<<j*j<<endl;//输出2304
 
 18.为向量中每个元素赋值
- vector<int> dp(amount + 1, amount + 1);
+vector<int> dp(amount + 1, amount + 1);
+ 
+19.数组累积求和
+vector<int>& nums;
+int sum = accumulate(nums.begin(), nums.end(), 0);
+
+20.判断奇数偶数
+int s;
+cout<< s & 1 ;//输出1为奇数，0为偶数
+
+21.乘以2或者除以2
+int s;
+cout<< s<<1;//乘以2
+cout<< s>>1;//除以2
+
+22.输入输出用scanf和printf效率高
+int n;
+scanf("%d", n);
+printf("%d", n);
