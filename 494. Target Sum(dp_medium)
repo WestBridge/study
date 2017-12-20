@@ -1,0 +1,38 @@
+C++:
+class Solution {
+public:
+    int findTargetSumWays(vector<int>& nums, int s) {
+       int sum = accumulate(nums.begin(), nums.end(), 0);
+       return sum < s || (sum + s) & 1 ? 0 : subSetSum(nums, (sum + s) >> 1);
+    }
+    int subSetSum(vector<int>& nums, int s){
+        vector<int> dp(s + 1, 0);
+        dp[0] = 1;
+        for(int n : nums){
+            for(int i = s; i >= n; i--){
+                dp[i] += dp[i - n];
+            }
+        }
+        return dp[s];
+    }
+};
+
+java:
+class Solution {
+    public int findTargetSumWays(int[] nums, int S) {
+        int sum = 0;
+        for(int n : nums)
+            sum += n;
+        return (sum < S) || (sum + S) % 2 > 0 ? 0 : subSetSum(nums, (S + sum) >> 1);
+    }
+    public int subSetSum(int[] nums, int s){
+        int[] dp = new int[s + 1];
+        dp[0] = 1;
+        for(int n : nums){
+            for(int i = s; i >= n; i--){
+                dp[i] += dp[i - n];
+            }
+        }
+        return dp[s];
+    }
+}
