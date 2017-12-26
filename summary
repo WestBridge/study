@@ -82,8 +82,12 @@ System.out.print(i*i);//输出48*48
 17.为数组中每个元素赋值
 int []dp = new int[amount + 1];
 Arrays.fill(dp, amount + 1);
-
-
+ 
+18.HashMap的使用
+ Map<Integer,Integer> map = new HashMap<Integer,Integer>();
+ map.put(0,-1);
+ //或者 Map<Integer, Integer> map = new HashMap<Integer, Integer>(){{put(0,-1);}};
+Integer prev = map.get(sum);// map.get()没找到时返回null
 //////*****************C++**************//////////////////
 1.排序
 vector<int> v(num.begin(), num.end());
@@ -213,3 +217,9 @@ cout<< s>>1;//除以2
 int n;
 scanf("%d", n);
 printf("%d", n);
+
+23.map的使用
+map<int,int> m;
+m.insert(pair<int,int>(0,-1));
+m.find(sum) != m.end()//找到sum
+m[sum] = i;//赋值
