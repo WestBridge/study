@@ -1,0 +1,55 @@
+C++:
+class Solution {
+public:
+    int countSubstrings(string s) {
+        
+        if(s.size() == 0) return 0;
+        int ans = 0;
+        for(int i = 0; i < s.size(); i++){
+            ans += count(s, i, i);
+            ans += count(s, i, i + 1);
+        }
+        return ans;
+        
+    }
+    int count(string s, int begin, int end){
+        int res = 0;
+        while(begin >= 0 && end < s.size() && s[begin--] == s[end++]){
+            res++;
+        }
+        return res;
+    }
+   
+};
+//another
+class Solution {  
+public:  
+    int countSubstrings(string s) {  
+        int res = 0, n = s.length();  
+        for(int i = 0; i<n ;i++ ){  
+           
+            for(int j = 0; i-j >=0 && i+j <n && s[i-j] == s[i+j]; j++)res++;  
+            for(int j = 0; i-1-j >=0 && i+j <n && s[i-1-j] == s[i+j];j++)res++;  
+        }  
+        return res;  
+    }  
+}; 
+
+java:
+class Solution {
+    public int countSubstrings(String s) {
+        int ans = 0;
+        for(int i = 0; i < s.length(); i++){
+            ans += count(s, i, i);
+            ans += count(s, i, i + 1);
+        }
+        return ans;
+    }
+    public int count(String s, int i, int j){
+        int res = 0;
+        while(i >= 0 && j < s.length() && s.charAt(i--) == s.charAt(j++)){
+          res++;   
+        }
+        return res;
+    }
+}
