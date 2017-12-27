@@ -88,6 +88,13 @@ Arrays.fill(dp, amount + 1);
  map.put(0,-1);
  //或者 Map<Integer, Integer> map = new HashMap<Integer, Integer>(){{put(0,-1);}};
 Integer prev = map.get(sum);// map.get()没找到时返回null
+
+19.sort排序int[][]
+ int[][] pairs;
+ Arrays.sort(pairs,(a, b) -> (a[0] - b[0]));//根据pairs每行的第一个元素排序
+
+
+
 //////*****************C++**************//////////////////
 1.排序
 vector<int> v(num.begin(), num.end());
