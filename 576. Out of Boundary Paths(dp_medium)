@@ -1,0 +1,98 @@
+c++:
+class Solution {
+public:
+    int findPaths(int m, int n, int N, int i, int j) {
+        uint dp[51][50][50]={};  
+        for(int k = 1; k <= N; k++){
+            for(int i = 0; i < m; i++){
+                for(int j = 0; j < n; j++){
+                   dp[k][i][j]=((i == 0 ? 1 : dp[k-1][i-1][j])  + (j == n - 1 ? 1 : dp[k-1][i][j+1]) + (i == m - 1 ? 1 : dp[k-1][i+1][j]) + ( j == 0 ? 1 : dp[k-1][i][j-1])) % 1000000007;
+                                    
+                }
+            }
+        }
+        return dp[N][i][j];
+    }
+};
+//better one
+class Solution {
+public:
+ int findPaths(int m, int n, int N, int i, int j) {
+        if (m <= 0 || n <= 0) return 0;
+        int dp[m][n] = {};
+        for (int k=0; k<N; k++) {
+            int prior[n] = {};
+            for (int i=0; i<m; i++) {
+                for (int j=0; j<n; j++) {
+                    unsigned int paths = 0;
+                    paths += (i==0 ? 1 : prior[j]);
+                    paths += (j==0 ? 1 : prior[j-1]);
+                    paths += (i==m-1 ? 1 : dp[i+1][j]);
+                    paths += (j==n-1 ? 1 : dp[i][j+1]);
+                    paths %= 1000000007;
+                    prior[j] = dp[i][j];
+                    dp[i][j] = paths;
+                }
+            }
+        }
+        return dp[i][j];
+    }
+};
+
+java:
+public class Solution {  
+    public int findPaths(int m, int n, int N, int a, int b) {  
+        if (N <= 0) {  
+            return 0;  
+        }  
+        int[][] cnt = new int[m][n];  
+        int res = 0;  
+        int mod = 1000000007;  
+        int[][] dirs = {{1, 0}, {-1, 0}, {0, 1}, {0, -1}};  
+        cnt[a][b] = 1;  
+        for (int i = 0; i < N; i++) {  
+            int[][] temp = new int[m][n];  
+            for (int j = 0; j < m; j++) {  
+                for (int k = 0; k < n; k++) {  
+                    for (int[] dir : dirs) {  
+                        int nm = j + dir[0];  
+                        int nn = k + dir[1];  
+                        if (nm < 0 || nn < 0 || nm >= m || nn >= n) {  
+                          
+                            res = (res + cnt[j][k]) % mod;  
+                        } else {  
+                            temp[nm][nn] = (temp[nm][nn] + cnt[j][k]) % mod;  
+                        }  
+                    }  
+                }  
+            }  
+            cnt = temp;  
+        }  
+        return res;  
+    }  
+} 
+
+
+//another way
+ class Solution {
+    public int findPaths(int m, int n, int N, int i1, int j1) {
+        if(m <= 0 || n <= 0) return 0;
+        long[][] dp = new long[m][n];
+        for(int k = 0; k < N; k++){
+            long[] pre = new long[n];
+            for(int i = 0; i < m; i++){
+                for(int j = 0; j < n; j++){
+                    long paths = 0;
+                    paths += (i == 0 ? 1 : pre[j]);
+                    paths += (j == 0 ? 1 : pre[j - 1]);
+                    paths += (i == m - 1 ? 1 : dp[i + 1][j]);
+                    paths += (j == n - 1 ? 1 : dp[i][j + 1]);
+                    paths %= 1000000007;
+                    pre[j] = dp[i][j];
+                    dp[i][j] = paths;
+                }
+            }
+        }
+            return (int)dp[i1][j1];
+    }
+}
