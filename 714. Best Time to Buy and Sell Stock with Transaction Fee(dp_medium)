@@ -1,0 +1,25 @@
+C++:
+class Solution {
+public:
+    int maxProfit(vector<int>& prices, int fee) {
+         int s0 = 0, s1 = INT_MIN;
+         for(int p : prices){
+             int temp = s0;
+             s0 = max(s0, s1 + p);
+             s1 = max(s1, temp - p - fee);
+         }
+        return s0;
+    }
+};
+java:
+class Solution {
+    public int maxProfit(int[] prices, int fee) {
+         int s0 = 0, s1 = Integer.MIN_VALUE;
+        for(int p : prices){
+            int temp = s0;
+            s0 = Math.max(s0, s1 + p);
+            s1 = Math.max(s1, s0 - p - fee);
+        }
+        return s0;
+    }
+}
