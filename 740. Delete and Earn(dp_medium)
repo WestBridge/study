@@ -1,0 +1,36 @@
+java:
+class Solution {
+    public int deleteAndEarn(int[] nums) {
+        int n = 10001;
+        int[] values= new int[n];
+        for(int num : nums){
+           values[num] += num;
+        }
+        int skip = 0, take = 0;
+        for(int i = 0; i < n; i++){
+            int itake = skip + values[i];
+            int iskip = Math.max(skip,take);
+            skip = iskip;
+            take = itake;
+        }
+        return Math.max(skip, take);
+    }
+}
+c++:
+class Solution {
+public:
+    int deleteAndEarn(vector<int>& nums) {
+        int n = 10001;
+        vector<int> values(n, 0);
+        for(int num : nums){
+           values[num] += num;
+        }
+        int skip = 0, take = 0;
+        for(int i = 0; i < n; i++){
+         int itake = skip + values[i];
+         skip = max(skip, take);
+         take = itake;
+        }
+        return max(skip,take);
+    }
+};
