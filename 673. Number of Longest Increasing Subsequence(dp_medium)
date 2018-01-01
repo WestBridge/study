@@ -1,0 +1,54 @@
+C++:
+class Solution {
+public:
+    int findNumberOfLIS(vector<int>& nums) {
+        int n = nums.size(), res = 0, max_len = 0;
+        vector<pair<int,int>> dp(n,{1,1});           
+        for(int i = 0; i<n; i++){
+            for(int j = 0; j <i ; j++){
+                if(nums[i] > nums[j]){
+                    if(dp[i].first == dp[j].first + 1)dp[i].second += dp[j].second;
+                    if(dp[i].first < dp[j].first + 1)dp[i] = {dp[j].first + 1, dp[j].second};
+                }
+            }
+            if(max_len == dp[i].first)res += dp[i].second;
+            if(max_len < dp[i].first){
+                max_len = dp[i].first;
+                res = dp[i].second;
+            }
+        }
+        return res;
+    }
+};
+java:
+class Solution {
+    public int findNumberOfLIS(int[] nums) {
+        int n = nums.length;
+        if(n == 0) return 0;
+        int[] len = new int[n];
+        int[] count = new int[n];
+       
+        int res = 0, max_len = 0;
+        for(int i = 0; i < n; i++){
+            len[i] = 1;
+            count[i] = 1;
+            for(int j = 0; j < i; j++){
+                if(nums[i] > nums[j]){
+                    if(len[i] == len[j] + 1) {
+                        count[i] += count[j];
+                    }
+                    else if(len[i] < len[j] + 1){
+                        len[i] = len[j] + 1;
+                        count[i] = count[j];
+                    }
+                }
+            }
+            if(max_len == len[i]) res += count[i];
+            if(max_len < len[i]){
+                max_len = len[i];
+                res = count[i];
+            }
+        }
+        return res;
+    }
+}
