@@ -1,0 +1,48 @@
+C++:
+class Solution {
+public:
+    int romanToInt(string s) {
+	    vector<int> a(26, 0);
+        a['I' - 'A'] = 1;
+        a['V' - 'A'] = 5;
+        a['X' - 'A'] = 10;
+        a['L' - 'A'] = 50;
+        a['C' - 'A'] = 100;
+        a['D' - 'A'] = 500;
+        a['M' - 'A'] = 1000;
+        int ans = 0;
+        char pre = 'A';
+        for(char c : s){
+            if(a[c - 'A'] > a[pre - 'A'])
+                ans -= 2 * a[pre - 'A'];
+            ans += a[c - 'A'];
+            pre = c;
+        }
+        return ans;
+        
+    }
+};
+java:
+class Solution {
+  public int romanToInt(String s) {
+      int[] a = new int[26];
+      a['I' - 'A'] = 1;
+      a['V' - 'A'] = 5;
+      a['X' - 'A'] = 10;
+      a['L' - 'A'] = 50;
+      a['C' - 'A'] = 100;
+      a['D' - 'A'] = 500;
+      a['M' - 'A'] = 1000;
+      int ans = 0;
+      char prev = 'A';
+      for(char c : s.toCharArray()){
+
+          if(a[c - 'A'] > a[prev - 'A'])
+              ans -= 2 * a[prev - 'A'];
+          ans += a[c - 'A'];
+          prev = c;
+      }   
+      return ans;
+}
+}
+
