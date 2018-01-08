@@ -1,0 +1,68 @@
+C++:
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> paren;
+        for(char& c : s){ //Adding & will increase efficiency.
+            if(c == '[' || c == '(' || c == '{'){
+                paren.push(c);
+            }
+            else{
+                if(paren.empty()) return false;
+                else if(c == ')' && paren.top() != '(') return false;
+                else if(c == ']' && paren.top() != '[') return false;
+                else if(c == '}' && paren.top() != '{') return false;
+                paren.pop();
+            }
+        }
+        return paren.empty();
+    }
+};
+
+java:
+class Solution {
+    public boolean isValid(String s) {
+        Stack<Character> stack = new Stack<Character>();
+        for(char c : s.toCharArray()){
+            if(c == '(' || c == '[' || c == '{'){
+                stack.push(c);
+            }
+            else {
+                if(stack.isEmpty()) return false;
+                else if(c == ')' && stack.peek() != '(') return false;
+                else if(c == ']' && stack.peek() != '[') return false;
+                else if(c == '}' && stack.peek() != '{') return false;
+                stack.pop();
+            }
+        }
+        return stack.isEmpty();
+        
+    }
+}
+//better one
+public class Solution {
+	public boolean isValid(String s) {
+		char[] stack = new char[s.length()];
+		int head = 0;
+		for(char c : s.toCharArray()) {
+			switch(c) {
+				case '{':
+				case '[':
+				case '(':
+					stack[head++] = c;
+					break;
+				case '}':
+					if(head == 0 || stack[--head] != '{') return false;
+					break;
+				case ')':
+					if(head == 0 || stack[--head] != '(') return false;
+					break;
+				case ']':
+					if(head == 0 || stack[--head] != '[') return false;
+					break;
+			}
+		}
+		return head == 0;
+
+	}
+}
