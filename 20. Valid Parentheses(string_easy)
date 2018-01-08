@@ -18,6 +18,26 @@ public:
         return paren.empty();
     }
 };
+//another one
+class Solution {
+public:
+    bool isValid(string s) {
+        char paren[s.size()];
+        int head = 0;
+        for(char& c : s){
+            if(c == '[' || c == '(' || c == '{'){
+                paren[head++] = c;
+            }
+            else{
+                if(head == 0) return false;
+                else if(c == ')' && paren[--head] != '(') return false;
+                else if(c == ']' && paren[--head] != '[') return false;
+                else if(c == '}' && paren[--head] != '{') return false;
+            }
+        }
+        return head == 0;
+    }
+};
 
 java:
 class Solution {
