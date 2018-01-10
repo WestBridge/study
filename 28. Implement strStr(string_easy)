@@ -1,0 +1,14 @@
+java:
+class Solution {
+    public int strStr(String haystack, String needle) {
+        return haystack.indexOf(needle);
+    }
+}
+c++:
+class Solution {
+public:
+    int strStr(string haystack, string needle) {
+        
+        return haystack.find(needle);
+    }
+};
