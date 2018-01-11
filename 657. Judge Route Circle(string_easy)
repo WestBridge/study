@@ -1,0 +1,41 @@
+C++:
+class Solution {
+public:
+    bool judgeCircle(string moves) {
+        int row = 0, col = 0;
+        for(char c : moves){
+            if(c == 'U')
+                col++;
+            else if(c == 'D')
+                col--;
+            else if(c == 'L')
+                row--;
+            else if(c == 'R')
+                row++;
+        }
+        return row == 0 && col == 0;
+    }
+};
+//better way
+class Solution {
+public:
+    bool judgeCircle(string moves) {
+        int x= 0, y = 0;
+        for(char c : moves){
+            x = x + (c == 'R') - (c == 'L');
+            y = y + (c == 'U') - (c == 'D');
+        }
+        return x == 0 && y == 0;
+    }
+};
+java:
+class Solution {
+    public boolean judgeCircle(String moves) {
+        int x = 0, y = 0;
+        for(char c : moves.toCharArray()){
+            y += (c == 'U'?1:0) - (c == 'D'?1:0);
+            x += (c == 'R'?1:0) - (c == 'L'?1:0);
+        }
+        return x == 0 && y == 0;
+    }
+}
